@@ -42,7 +42,7 @@ Process all the `.go` files in the `./test/data` directory with the `obfuscate` 
 
 Process the `./test/data/main.go` file with the `mask` engine using default parameters and write the obfuscated file as `/test/data/main_gen.go`
 ```
-./wclk -e mask -r targetPath=./test/data/main.go
+./wclk -e mask -r targetPath=./test/data/main.go -w
 ```
 
 ## Current state
