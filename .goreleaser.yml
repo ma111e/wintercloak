@@ -1,0 +1,41 @@
+version: 2
+project_name: wintercloak
+builds:
+  - id: wclk
+    main: ./cmd/wclk
+    binary: wclk
+    goos:
+      - linux
+    goarch:
+      - amd64
+    hooks:
+      pre:
+        - wails build
+archives:
+  -
+    format: zip
+    files:
+      - src: build/bin/*
+        strip_parent: true
+      - data/*
+      - LICENSE
+      - README.md
+    wrap_in_directory: true
+    name_template: >-
+      {{- .ProjectName }}_
+      {{- if eq .Os "windows" }}Windows_
+      {{- else }}{{ .Os }}_{{ end }}
+      {{- if eq .Arch "amd64" }}x86_64
+      {{- else if eq .Arch "386" }}i386
+      {{- else }}{{ .Arch }}{{ end }}_
+      {{- .Env.VERSION }}
+checksum:
+  name_template: 'checksums.txt'
+snapshot:
+  name_template: "{{ .Tag }}"
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - '^docs:'
+      - '^test:'
